@@ -1,5 +1,5 @@
 body {
-  background-image: url("https://img.freepik.com/free-vector/abstract-concentric-line-square-mosaic-background_1164-1109.jpg?size=338&ext=jpg");
+  background-image: url('https://img.freepik.com/free-vector/abstract-concentric-line-square-mosaic-background_1164-1109.jpg?size=338&ext=jpg');
   background-repeat: repeat;
 }
 
@@ -8,8 +8,17 @@ body {
   font-size: 48px;
   color: white;
   text-shadow: 5px 2px 4px #000000;
-  font-family: "Raleway", sans-serif;
-  margin: 20px 10px 20px 10px;
+  font-family: 'Raleway', sans-serif;
+  margin: 20px 10px 10px 10px;
+}
+
+.description {
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  text-shadow: 5px 2px 4px #000000;
+  font-family: 'Raleway', sans-serif;
+  margin: 0px 10px 20px 10px;
 }
 
 #button-container {
@@ -20,13 +29,14 @@ body {
 #reset,
 #size,
 #color,
-#black {
-  height: 50px;
-  margin: 0px 20px;
-  padding: 10px 20px;
+#black,
+#erase {
+  height: 40px;
+  margin: 5px 10px;
+  padding: 10px 10px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 5px;
 }
 
@@ -36,6 +46,11 @@ body {
 }
 
 #size {
+  border: 2px solid #bea22c;
+  color: #bea22c;
+}
+
+#erase {
   border: 2px solid #117826;
   color: #117826;
 }
@@ -58,7 +73,14 @@ body {
 
 #size:hover {
   color: white;
+  background-color: #bea22c;
+  transition-duration: 0.4s;
+}
+
+#erase:hover {
+  color: white;
   background-color: #117826;
+  transition-duration: 0.4s;
 }
 
 #color:hover {
@@ -79,6 +101,13 @@ body {
   min-height: 30px;
   min-width: 30px;
   display: inline-block;
+}
+
+.grid {
+  width: 500px;
+  height: 512px;
+  margin: 30px auto;
+  border: 5px solid black;
 }
 
 #container {

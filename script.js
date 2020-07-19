@@ -1,7 +1,5 @@
-// TODO colors https://gomakethings.com/two-ways-to-set-an-elements-css-with-vanilla-javascript/
-
-;(function () {
-  // Function to create the grid
+;(function() {
+  // Create Grid
   function gridCreate(square) {
     let totalSquares = square * square
     for (let i = 0; i < totalSquares; i++) {
@@ -14,7 +12,17 @@
     document.documentElement.style.setProperty('--gridCol', square)
   }
 
-  // Getting a random color
+  // Black Effect
+  function blackHover() {
+    let boxes = document.querySelectorAll('.box')
+    boxes.forEach(function(box) {
+      box.addEventListener('mouseover', function(e) {
+        this.style.backgroundColor = '#000'
+      })
+    })
+  }
+
+  // Getting A Random Color
   function setColor() {
     var letters = '0123456789ABCDEF'
     var color = '#'
@@ -24,64 +32,72 @@
     return color
   }
 
-  // Applying random color to boxes
-  function clickColor() {
-    let colorButton = document.getElementById('color')
-    colorButton.addEventListener('click', function (e) {
-      console.log('Click Color')
+  // Color Effect
+  function colorHover() {
+    let boxes = document.querySelectorAll('.box')
+    boxes.forEach(function(box) {
+      box.addEventListener('mouseover', function(e) {
+        this.style.backgroundColor = setColor()
+      })
     })
   }
 
-  // Applying black color to boxes
-  function clickBlack() {
-    let blackButton = document.getElementById('black')
-    blackButton.addEventListener('click', function (e) {
-      console.log('Click Black')
-      // @TODO
+  // Erase Effect
+  function eraseHover() {
+    let boxes = document.querySelectorAll('.box')
+    boxes.forEach(function(box) {
+      box.addEventListener('mouseover', function(e) {
+        this.style.backgroundColor = '#FFF'
+      })
     })
   }
 
+  // Change Size Prompt
   function sizePrompt() {
     let response = prompt('How many squares by squares would you like? Max: 16.')
-
     if (response == '') {
       return alert('Please input a number and try again.')
     } else if (isNaN(response)) {
       return alert('Not a number! Please enter a number.')
     }
-
     return parseInt(response)
+    let resize = true
   }
 
-  function boxesHover() {
-    let boxes = document.querySelectorAll('.box')
+  // Reset The Grid
+  function clickReset() {
+    let resetButton = document.getElementById('reset')
+    resetButton.addEventListener('click', function(e) {})
+    resetGrid()
+  }
 
-    boxes.forEach(function (box) {
-      box.addEventListener('click', function (e) {
-        console.log('Click Event', e)
-        // @TODO Figure out the element
-        // Add your logic to the element base on click
-      })
-
-      box.addEventListener('mouseover', function (e) {
-        console.log('Mouse Over', e)
-        // @TODO Figure out the element
-        // Add your logic to the element base on mouseover
-      })
+  function resetGrid() {
+    let reset = document.querySelectorAll('.box')
+    reset.forEach(box => {
+      box.style.backgroundColor = '#FFF'
     })
   }
 
+  // Document's Main Function
   function main() {
-    document.addEventListener('DOMContentLoaded', function () {
-      gridCreate(16)
-      clickColor()
-      clickBlack()
+    document.addEventListener('DOMContentLoaded', function() {
+      gridCreate((square = 16), (resize = false))
+      blackHover()
 
-      boxesHover()
+      let colorButton = document.getElementById('color')
+      colorButton.addEventListener('click', colorHover)
 
-      // Size Prompt
-      const sizeMessage = document.querySelector('#size')
-      sizeMessage.addEventListener('click', sizePrompt)
+      let blackButton = document.getElementById('black')
+      blackButton.addEventListener('click', blackHover)
+
+      let sizeButton = document.querySelector('#size')
+      sizeButton.addEventListener('click', sizePrompt)
+
+      let eraseButton = document.getElementById('erase')
+      eraseButton.addEventListener('click', eraseHover)
+
+      let resetButton = document.getElementById('reset')
+      resetButton.addEventListener('click', clickReset)
     })
   }
 
