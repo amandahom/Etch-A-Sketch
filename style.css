@@ -114,4 +114,6 @@ body {
   display: grid;
   grid-template-rows: repeat(var(---gridRow), minmax(0px, 1fr));
   grid-template-columns: repeat(var(--gridCol), minmax(0px, 1fr));
+  height: 512px;
+  width: 501px;
 }

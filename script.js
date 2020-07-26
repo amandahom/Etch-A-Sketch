@@ -17,7 +17,7 @@
     let boxes = document.querySelectorAll('.box')
     boxes.forEach(function(box) {
       box.addEventListener('mouseover', function(e) {
-        this.style.backgroundColor = '#000'
+        this.style.backgroundColor = '#1a1c1b'
       })
     })
   }
@@ -54,14 +54,15 @@
 
   // Change Size Prompt
   function sizePrompt() {
-    let response = prompt('How many squares by squares would you like? Max: 16.')
+    let response = prompt('How many squares by squares would you like? Min: 2 Max: 16.')
     if (response == '') {
       return alert('Please input a number and try again.')
     } else if (isNaN(response)) {
       return alert('Not a number! Please enter a number.')
+    } else if (response < 2 || response > 16) {
+      return alert('Please input a number between 2 and 16')
     }
-    return parseInt(response)
-    let resize = true
+    main(response, true)
   }
 
   // Reset The Grid
@@ -79,27 +80,30 @@
   }
 
   // Document's Main Function
-  function main() {
-    document.addEventListener('DOMContentLoaded', function() {
-      gridCreate((square = 16), (resize = false))
-      blackHover()
+  function main(square = 16, resize = false) {
+    if (resize) {
+      const myNode = document.getElementById('container')
+      myNode.innerHTML = ''
+    }
+    gridCreate(square)
+    blackHover()
 
-      let colorButton = document.getElementById('color')
-      colorButton.addEventListener('click', colorHover)
+    let colorButton = document.getElementById('color')
+    colorButton.addEventListener('click', colorHover)
 
-      let blackButton = document.getElementById('black')
-      blackButton.addEventListener('click', blackHover)
+    let blackButton = document.getElementById('black')
+    blackButton.addEventListener('click', blackHover)
 
-      let sizeButton = document.querySelector('#size')
-      sizeButton.addEventListener('click', sizePrompt)
+    let sizeButton = document.querySelector('#size')
+    sizeButton.addEventListener('click', sizePrompt)
 
-      let eraseButton = document.getElementById('erase')
-      eraseButton.addEventListener('click', eraseHover)
+    let eraseButton = document.getElementById('erase')
+    eraseButton.addEventListener('click', eraseHover)
 
-      let resetButton = document.getElementById('reset')
-      resetButton.addEventListener('click', clickReset)
-    })
+    let resetButton = document.getElementById('reset')
+    resetButton.addEventListener('click', clickReset)
   }
-
-  main()
+  document.addEventListener('DOMContentLoaded', function() {
+    main()
+  })
 })()
