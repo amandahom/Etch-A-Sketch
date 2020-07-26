@@ -1,4 +1,4 @@
-;(function() {
+;(function () {
   // Create Grid
   function gridCreate(square) {
     let totalSquares = square * square
@@ -15,9 +15,9 @@
   // Black Effect
   function blackHover() {
     let boxes = document.querySelectorAll('.box')
-    boxes.forEach(function(box) {
-      box.addEventListener('mouseover', function(e) {
-        this.style.backgroundColor = '#000'
+    boxes.forEach(function (box) {
+      box.addEventListener('mouseover', function (e) {
+        this.classList.add('black')
       })
     })
   }
@@ -35,8 +35,8 @@
   // Color Effect
   function colorHover() {
     let boxes = document.querySelectorAll('.box')
-    boxes.forEach(function(box) {
-      box.addEventListener('mouseover', function(e) {
+    boxes.forEach(function (box) {
+      box.addEventListener('mouseover', function (e) {
         this.style.backgroundColor = setColor()
       })
     })
@@ -45,9 +45,11 @@
   // Erase Effect
   function eraseHover() {
     let boxes = document.querySelectorAll('.box')
-    boxes.forEach(function(box) {
-      box.addEventListener('mouseover', function(e) {
-        this.style.backgroundColor = '#FFF'
+    boxes.forEach(function (box) {
+      box.addEventListener('mouseover', function (e) {
+        if (e.target.classList.contains('black')) {
+          e.target.classList.remove('black')
+        }
       })
     })
   }
@@ -60,6 +62,12 @@
     } else if (isNaN(response)) {
       return alert('Not a number! Please enter a number.')
     }
+
+    // @TODO Add number validation that needs to be square
+    // @TODO Make field into number field type and add a max using html
+    console.log({ response })
+    main(response, true)
+    console.log('After main')
     return parseInt(response)
     let resize = true
   }
@@ -67,39 +75,51 @@
   // Reset The Grid
   function clickReset() {
     let resetButton = document.getElementById('reset')
-    resetButton.addEventListener('click', function(e) {})
+    resetButton.addEventListener('click', function (e) {})
     resetGrid()
   }
 
   function resetGrid() {
     let reset = document.querySelectorAll('.box')
-    reset.forEach(box => {
-      box.style.backgroundColor = '#FFF'
+    reset.forEach((box) => {
+      if (box.classList.contains('black')) {
+        box.classList.remove('black')
+      }
     })
   }
 
   // Document's Main Function
-  function main() {
-    document.addEventListener('DOMContentLoaded', function() {
-      gridCreate((square = 16), (resize = false))
-      blackHover()
+  function main(square = 16, resize = false) {
+    console.log('Starting.....')
+    if (resize) {
+      console.log('Starting deleting shit:?')
+      // removeElementsByClass('.box')
 
-      let colorButton = document.getElementById('color')
-      colorButton.addEventListener('click', colorHover)
+      const myNode = document.getElementById('container')
+      myNode.innerHTML = ''
+    }
+    gridCreate(square)
+    blackHover()
 
-      let blackButton = document.getElementById('black')
-      blackButton.addEventListener('click', blackHover)
+    let colorButton = document.getElementById('color')
+    colorButton.addEventListener('click', colorHover)
 
-      let sizeButton = document.querySelector('#size')
-      sizeButton.addEventListener('click', sizePrompt)
+    let blackButton = document.getElementById('black')
+    blackButton.addEventListener('click', blackHover)
 
-      let eraseButton = document.getElementById('erase')
-      eraseButton.addEventListener('click', eraseHover)
+    let sizeButton = document.querySelector('#size')
+    sizeButton.addEventListener('click', sizePrompt)
 
-      let resetButton = document.getElementById('reset')
-      resetButton.addEventListener('click', clickReset)
-    })
+    let eraseButton = document.getElementById('erase')
+    eraseButton.addEventListener('click', eraseHover)
+
+    let resetButton = document.getElementById('reset')
+    resetButton.addEventListener('click', clickReset)
   }
 
-  main()
+  document.addEventListener('DOMContentLoaded', function () {
+    main()
+  })
 })()
+
+//
