@@ -115,3 +115,7 @@ body {
   grid-template-rows: repeat(var(---gridRow), minmax(0px, 1fr));
   grid-template-columns: repeat(var(--gridCol), minmax(0px, 1fr));
 }
+
+.black {
+  background-color: rgb(61, 57, 57);
+}
